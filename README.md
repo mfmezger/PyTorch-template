@@ -1,4 +1,4 @@
-# challenge-starter-fastai
+# PyTorch Template
 
 
 To install a specific environment use:

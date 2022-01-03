@@ -1,0 +1,12 @@
+# DEFINE THE DATA DIRECTORY
+
+data_storage:
+  pt_location: "/home/marc/pt/"
+
+training_variables:
+  batchsize: 2
+  learning_rate: 0.01
+  train_split: 0.7
+  
+
+

@@ -1,0 +1,5 @@
+# DEFINE THE DATA DIRECTORY
+
+data_storage:
+  data_location: "/home/marc/data/"
+  pt_location: "/home/marc/pt/"

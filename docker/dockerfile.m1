@@ -1,0 +1,42 @@
+# chosse the amd64 version for m1 macs.
+FROM amd64/ubuntu
+
+# projekt folder name and python env name
+ARG PYTHONENV=python_project
+ARG ENVIRONMENTS=vision_requirements.txt
+ENV PROJECT_FOLDER=project
+
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONFAULTHANDLER 1
+
+RUN apt-get update && \
+    apt-get upgrade -y &&\
+    apt-get install -y &&\
+    apt-get update
+
+# Install GIT.
+RUN apt-get install -y git
+
+# Install Python.
+RUN apt-get install -y \
+        python3.10 \
+        python3.10-venv \
+        python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# copy the requirements.txt and install it.
+COPY environments/$ENVIRONMENTS $PROJECT_FOLDER/requirements.txt
+
+
+# Activate Venv and install Requirements there.
+RUN python3.10 -m venv /opt/$PYTHONENV
+RUN . /opt/$PYTHONENV/bin/activate && pip install -r $PROJECT_FOLDER/requirements.txt
+ENV PATH="/opt/$PYTHONENV/bin:$PATH"
+
+# Don’t run Docker as root
+RUN useradd --create-home appuser
+
+CMD [ "/bin/bash" ]
